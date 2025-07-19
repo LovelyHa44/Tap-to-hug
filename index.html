@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tap to Hug</title>
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      position: relative;
+      color: white;
+    }
+
+    .hug-message {
+      font-size: 2em;
+      text-align: center;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .arms {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background-image: url('https://media.tenor.com/o1R5t5JryyMAAAAi/hug-love.gif');
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0;
+      animation: hugPop 1s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes hugPop {
+      0% { transform: scale(0.5); opacity: 0; }
+      50% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 16px;
+      color: pink;
+      animation: floatHeart 4s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes floatHeart {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-150px) scale(1.5);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hug-message">Tap anywhere to get a hug 🤗</div>
+
+  <script>
+    document.body.addEventListener("click", () => {
+      // Hug arms
+      const arms = document.createElement("div");
+      arms.className = "arms";
+      arms.style.left = Math.random() * 70 + 10 + "vw";
+      arms.style.top = Math.random() * 50 + 20 + "vh";
+      document.body.appendChild(arms);
+      setTimeout(() => arms.remove(), 2500);
+
+      // Floating hearts
+      for (let i = 0; i < 5; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.textContent = "💖";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.top = Math.random() * 100 + "vh";
+        heart.style.animationDuration = (3 + Math.random() * 2) + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 5000);
+      }
+    });
+  </script>
+</body>
+</html>
